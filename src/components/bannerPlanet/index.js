@@ -13,12 +13,15 @@ export default class BannerPlanet extends Component {
 
     constructor() {
         super();
-        this.updatePlanet();
         this.state = {
             planet: {},
             loading: true
         };
+    }
 
+    componentDidMount(){
+        this.updatePlanet();
+        this.interval =  setInterval( this.updatePlanet, 2500)
     }
 
     onPlanetLoaded = (planet) => {
@@ -34,7 +37,7 @@ export default class BannerPlanet extends Component {
             loading: false
         });
     }
-    updatePlanet() {
+    updatePlanet = () => {
         // const id = 123242 //for error check
         const id = Math.floor(Math.random() * 20) + 2;
         this.swapiService
@@ -54,6 +57,7 @@ export default class BannerPlanet extends Component {
 
         return (
             <div className="banner-planet jumbotron rounded">
+
                 {errorMessage}
                 {spinner}
                 {content}

@@ -10,8 +10,17 @@ import PersonDetails  from '../personDetails/'
 
 
 export default class App extends Component {
+    state ={
+        selectedPerson: null
+    }
+    onItemSelected = (id) =>{
+        this.setState({
+            selectedPerson: id
+        })
+    }
 
     render() {
+
         return (
             <div className="app">
                 <Header/>
@@ -19,10 +28,11 @@ export default class App extends Component {
 
                 <div className="row">
                     <div className="col-md-6">
-                        <ItemList/>
+                        <ItemList
+                            onItemSelected={this.onItemSelected}/>
                     </div>
                     <div className="col-md-6">
-                        <PersonDetails/>
+                        <PersonDetails personID={this.state.selectedPerson}/>
                     </div>
                 </div>
 
