@@ -5,36 +5,56 @@ import swapiService from '../../services/swapiService/index'
 
 import Header from './../header/'
 import Baner  from '../bannerPlanet/'
-import ItemList  from '../itemList/'
-import PersonDetails  from '../personDetails/'
+import PeoplePage  from '../peoplePage/'
+
+
+import ErrorButton from '../errorButton';
+import ErrorIndicator from '../errorIndicator';
 
 
 export default class App extends Component {
     state ={
-        selectedPerson: null
+        showRandomPlanet: true,
+        hasError: false
     }
-    onItemSelected = (id) =>{
-        this.setState({
-            selectedPerson: id
-        })
+    componentDidCatch() {
+        this.setState({ hasError: true });
     }
+    toggleRandomPlanet = () => {
+        this.setState((state) => {
+            return {
+                showRandomPlanet: !state.showRandomPlanet
+            }
+        });
+    };
+
 
     render() {
+        if (this.state.hasError) {
+            return <ErrorIndicator />
+        }
+
+        const planet = this.state.showRandomPlanet ?
+            <Baner/> :
+            null;
 
         return (
             <div className="app">
                 <Header/>
-                <Baner/>
+                {planet}
 
-                <div className="row">
-                    <div className="col-md-6">
-                        <ItemList
-                            onItemSelected={this.onItemSelected}/>
-                    </div>
-                    <div className="col-md-6">
-                        <PersonDetails personID={this.state.selectedPerson}/>
-                    </div>
+                <div className="row mb2 button-row">
+                    <button
+                        className="toggle-planet btn btn-warning btn-lg"
+                        onClick={this.toggleRandomPlanet}>
+                        Toggle Random Planet
+                    </button>
+                    <ErrorButton />
                 </div>
+
+                <PeoplePage/>
+                <PeoplePage/>
+                <PeoplePage/>
 
             </div>
         )

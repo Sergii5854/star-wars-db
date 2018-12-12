@@ -4,7 +4,8 @@ import './style.css'
 
 import SwapiService from '../../services/swapiService/';
 import Spinner from './../spinner/';
-import ErrorIndicator from './../ErrorIndicator/';
+import ErrorIndicator from '../errorIndicator/';
+import ErrorButton from '../errorButton';
 
 export default class PersonDetails extends Component {
     swapiService = new SwapiService();
@@ -103,6 +104,7 @@ const PersonView = ({person}) => {
                             </span>
                         </li>
                     </ul>
+                    <ErrorButton/>
                 </div>
 
         </React.Fragment>

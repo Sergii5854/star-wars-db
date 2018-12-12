@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import SwapiService from '../../services/swapiService/';
 import Spinner from './../spinner/';
-import ErrorIndicator from './../ErrorIndicator/';
+import ErrorIndicator from '../errorIndicator/';
 
 import './style.css';
 
@@ -30,7 +30,8 @@ export default class BannerPlanet extends Component {
     onPlanetLoaded = (planet) => {
         this.setState({
             planet,
-            loading: false
+            loading: false,
+            error: false
         });
     };
 

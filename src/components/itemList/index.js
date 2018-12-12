@@ -3,7 +3,7 @@ import './style.css'
 
 import SwapiService from '../../services/swapiService/';
 import Spinner from './../spinner/';
-import ErrorIndicator from './../ErrorIndicator/';
+import ErrorIndicator from '../errorIndicator/';
 
 
 export default class ItemList extends Component {
