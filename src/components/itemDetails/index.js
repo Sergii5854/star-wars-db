@@ -7,31 +7,30 @@ import Spinner from './../spinner/';
 import ErrorIndicator from '../errorIndicator/';
 import ErrorButton from '../errorButton';
 
-export default class PersonDetails extends Component {
+export default class itemDetails extends Component {
     swapiService = new SwapiService();
     state = {
-        person: null,
-        loading: true
+        item: null,
+        image: null
     }
     componentDidMount(){
-        this.updatePerson()
+        this.updateItem()
     }
     componentDidUpdate(prevProps){
-        if(this.props.personID !== prevProps.personID){
-            this.updatePerson()
+        if(this.props.itemID !== prevProps.itemID){
+            this.updateItem()
         }
     }
 
-    updatePerson(){
-        const { personID } = this.props
-        if(!personID) return
+    updateItem(){
+        const { itemID, getData, getImageUrl} = this.props
+        if(!itemID) return
 
-        this.swapiService
-            .getPerson(personID)
-            .then( (person) => {
+        getData(itemID)
+            .then( (item) => {
                 this.setState({
-                    person ,
-                    loading: false
+                    item ,
+                    image: getImageUrl(item)
                 })
             })
             .catch(this.onError)
@@ -46,19 +45,19 @@ export default class PersonDetails extends Component {
 
 
     render() {
-        const { person , loading, error} = this.state;
+        const { item , loading, error} = this.state;
 
-        if(!person){
-            return <span>Select a person from a list</span>
+        if(!item){
+            return <span>Select a item from a list</span>
         }
         const hasData = !(loading || error);
         const errorMessage = error ? <ErrorIndicator/> : null
         const spinner = loading ? <Spinner/> : null
-        const content = hasData ? <PersonView person={person}/> : null
+        const content = hasData ? <ItemView item={item}/> : null
 
 
         return (
-            <div className="person-details card">
+            <div className="item-details card">
                 {errorMessage}
                 {spinner}
                 {content}
@@ -68,17 +67,17 @@ export default class PersonDetails extends Component {
     }
 }
 
-const PersonView = ({person}) => {
+const ItemView = ({item, image}) => {
     const {
         id, name, gender, birthYear, eyeColor
-    } = person;
+    } = item;
 
     return (
 
         <React.Fragment>
 
-                <img className="person-image"
-                     src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
+                <img className="item-image"
+                     src={image} />
 
                 <div className="card-body">
                     <h4>
