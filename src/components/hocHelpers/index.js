@@ -1,3 +1,4 @@
+// higher order component - HOC
 import React, { Component } from 'react';
 
 import Spinner from '../spinner';
