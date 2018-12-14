@@ -13,6 +13,15 @@ import ItemDetails from '../itemDetails/'
 import Record from '../record/'
 import ErrorBoundry from '../errorBoundry/'
 
+import { SwapiServiceProvider } from '../swapiServiceContext';
+import {
+    PersonDetails,
+    PlanetDetails,
+    StarshipDetails,
+    PersonList,
+    PlanetList,
+    StarshipList
+} from '../swComponents';
 
 export default class App extends Component {
     swapiService = new SwapiService()
@@ -69,24 +78,24 @@ export default class App extends Component {
 
         return (
             <ErrorBoundry>
-                <div className="stardb-app">
-                    <Header />
-                    {starshipDetails}
-                    <ItemList
-                        getData={getAllPeople}
-                        onItemSelected={() => {}}>
+                <SwapiServiceProvider value={this.swapiService} >
+                    <div className="stardb-app">
+                        <Header />
 
-                        { ({name}) => <span>{name}</span> }
-                    </ItemList>
+                        <PersonDetails itemId={11} />
 
-                    <ItemList
-                        getData={getAllPlanets}
-                        onItemSelected={() => {}}>
+                        <PlanetDetails itemId={5} />
 
-                        { ({name}) => <span>{name}</span> }
-                    </ItemList>
+                        <StarshipDetails itemId={9} />
 
-                </div>
+                        <PersonList />
+
+                        <StarshipList />
+
+                        <PlanetList />
+
+                    </div>
+                </SwapiServiceProvider>
             </ErrorBoundry>
         )
     }
