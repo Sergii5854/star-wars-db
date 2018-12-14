@@ -85,7 +85,7 @@ export default class App extends Component {
                 <SwapiServiceProvider value={this.swapiService} >
                     <div className="stardb-app">
                         <Header />
-
+                        {planet}
                         <PersonDetails itemId={11} />
 
                         <PlanetDetails itemId={5} />

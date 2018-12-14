@@ -4,5 +4,4 @@ import withSwapiService from "./withSwapiService"
 export  {
     withData,
     withSwapiService
-
 }
