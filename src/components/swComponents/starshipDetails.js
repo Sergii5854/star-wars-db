@@ -4,7 +4,6 @@ import ItemDetails from '../itemDetails';
 import Record from '../record';
 import {withSwapiService} from '../hocHelpers';
 
-import {SwapiServiceConsumer} from '../swapiServiceContext/';
 
 const StarshipDetails = (props) => {
     return (

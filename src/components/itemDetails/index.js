@@ -2,84 +2,60 @@ import React, { Component } from 'react';
 
 import './style.css'
 
-import SwapiService from '../../services/swapiService/';
-import Spinner from './../spinner/';
-import ErrorIndicator from '../errorIndicator/';
-import ErrorButton from '../errorButton';
-import Record from '../record';
 
-export default class itemDetails extends Component {
+import ErrorButton from '../errorButton';
+
+export default class ItemDetails extends Component {
 
     state = {
         item: null,
         image: null
+    };
+
+    componentDidMount() {
+        this.updateItem();
     }
-    componentDidMount(){
-        this.updateItem()
-    }
-    componentDidUpdate(prevProps){
+
+    componentDidUpdate(prevProps) {
         if (this.props.itemId !== prevProps.itemId ||
             this.props.getData !== prevProps.getData ||
             this.props.getImageUrl !== prevProps.getImageUrl) {
-
             this.updateItem();
         }
     }
 
-    updateItem(){
-        const { itemID, getData, getImageUrl} = this.props
-        if(!itemID) return false
+    updateItem() {
+        const { itemId, getData, getImageUrl } = this.props;
+        if (!itemId) {
+            return;
+        }
 
-        getData(itemID)
-            .then( (item) => {
+        getData(itemId)
+            .then((item) => {
                 this.setState({
-                    item ,
+                    item,
                     image: getImageUrl(item)
-                })
-            })
-            .catch(this.onError)
+                });
+            });
     }
 
     render() {
-        const { item , loading, error} = this.state;
 
-        if(!item){
-            return <span>Select a item from a list</span>
+        const { item, image } = this.state;
+        if (!item) {
+            return <span>Select a item from a list</span>;
         }
 
-
-        const hasData = !(loading || error);
-        const errorMessage = error ? <ErrorIndicator/> : null
-        const spinner = loading ? <Spinner/> : null
-        const content = hasData ? <ItemView item={item}/> : null
-
+        const { name } = item;
 
         return (
             <div className="item-details card">
-                {errorMessage}
-                {spinner}
-                {content}
-            </div>
-
-        )
-    }
-}
-
-const ItemView = ({item, image}) => {
-    const  { name } = item;
-
-
-    return (
-
-        <React.Fragment>
-
                 <img className="item-image"
-                     src={image} />
+                     src={image}
+                     alt="item"/>
 
                 <div className="card-body">
-                    <h4>
-                        {name}
-                    </h4>
+                    <h4>{name}</h4>
                     <ul className="list-group list-group-flush">
                         {
                             React.Children.map(this.props.children, (child) => {
@@ -87,10 +63,9 @@ const ItemView = ({item, image}) => {
                             })
                         }
                     </ul>
-                    <ErrorButton/>
+                    <ErrorButton />
                 </div>
-
-        </React.Fragment>
-    )
-
+            </div>
+        );
+    }
 }

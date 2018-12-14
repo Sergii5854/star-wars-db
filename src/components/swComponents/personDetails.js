@@ -4,14 +4,10 @@ import ItemDetails from '../itemDetails';
 import Record from '../record'
 import {withSwapiService} from '../hocHelpers/';
 
-// const PersonDetails = ({itemId, getData, getImageUrl}) => { // destructor
-const PersonDetails = ({props}) => {
+const PersonDetails = (props) => {
+    console.log(props);
     return (
-        <ItemDetails {...props}
-            // itemId={itemId}
-            // getData={getData}
-            // getImageUrl={getImageUrl}
-        >
+        <ItemDetails {...props} >
 
             <Record field="gender" label="Gender"/>
             <Record field="eyeColor" label="Eye Color"/>

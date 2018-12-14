@@ -3,16 +3,19 @@ import './style.css';
 
 const ItemList = (props) => {
 
-    const {data, onItemSelected, children: renderLabel} = props;
+    const { data, onItemSelected, children: renderLabel } = props;
 
     const items = data.map((item) => {
-        const {id} = item;
+        const { id } = item;
         const label = renderLabel(item);
 
         return (
             <li className="list-group-item"
                 key={id}
-                onClick={() => onItemSelected(id)}>
+                onClick={
+                    () => onItemSelected(id)
+                }
+            >
                 {label}
             </li>
         );
@@ -24,4 +27,7 @@ const ItemList = (props) => {
         </ul>
     );
 };
-export default ItemList
+
+
+
+export default ItemList;
