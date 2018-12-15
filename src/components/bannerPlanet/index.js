@@ -10,6 +10,9 @@ export default class BannerPlanet extends Component {
 
     swapiService = new SwapiService();
 
+    static defaultProps = {
+        updateInterval: 10000
+    }
 
     constructor() {
         super();
@@ -20,8 +23,9 @@ export default class BannerPlanet extends Component {
     }
 
     componentDidMount(){
+        const {updateInterval} = this.props
         this.updatePlanet();
-        this.interval =  setInterval( this.updatePlanet, 2500)
+        this.interval =  setInterval( this.updatePlanet, updateInterval)
     }
     componentWillUnmount(){
         clearInterval(this.interval)
@@ -71,6 +75,10 @@ export default class BannerPlanet extends Component {
         );
     }
 }
+
+// BannerPlanet.defaultProps = {
+//     updateInterval: 10000
+// }
 
 const PlanetView = ({planet}) => {
     const {

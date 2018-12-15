@@ -41,7 +41,7 @@ export default class App extends Component {
                     <div className="stardb-app">
                         <Header  onServiceChange={this.onServiceChange}/>
 
-                        <Baner/>
+                        <Baner updateInterval={15000}/>
 
                         <PeoplePage/>
 
