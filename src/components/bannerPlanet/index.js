@@ -13,6 +13,15 @@ export default class BannerPlanet extends Component {
     static defaultProps = {
         updateInterval: 10000
     }
+    static propTypes = {
+        updateInterval: (props, propName, componentName)=>{
+            const value = props[propName]
+
+            if( typeof value === 'nunber' && !isNaN(value)) return null
+
+            return new TypeError(`${componentName}: ${propName} - must be number`)
+        }
+    }
 
     constructor() {
         super();
