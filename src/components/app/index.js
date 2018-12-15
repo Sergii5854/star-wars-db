@@ -17,7 +17,7 @@ import { SwapiServiceProvider } from '../swapiServiceContext';
 export default class App extends Component {
 
     state = {
-        swapiService : new SwapiService(),
+        swapiService : new SwapiService,
     }
     onServiceChange = () => {
         this.setState( ({swapiService}) =>{
@@ -40,6 +40,7 @@ export default class App extends Component {
                 <SwapiServiceProvider value={this.state.swapiService} >
                     <div className="stardb-app">
                         <Header  onServiceChange={this.onServiceChange}/>
+
                         <Baner/>
 
                         <PeoplePage/>

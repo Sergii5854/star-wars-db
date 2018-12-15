@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './style.css';
 
 const ItemList = (props) => {
@@ -12,10 +13,7 @@ const ItemList = (props) => {
         return (
             <li className="list-group-item"
                 key={id}
-                onClick={
-                    () => onItemSelected(id)
-                }
-            >
+                onClick={() => onItemSelected(id)}>
                 {label}
             </li>
         );
@@ -27,7 +25,6 @@ const ItemList = (props) => {
         </ul>
     );
 };
-
 
 
 export default ItemList;
