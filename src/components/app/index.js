@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 import './style.css'
 import SwapiService from '../../services/swapiService/index'
@@ -11,20 +12,20 @@ import {PeoplePage, PlanetPage, StarshipPage} from '../pages/'
 
 import ErrorBoundry from '../errorBoundry/'
 
-import { SwapiServiceProvider } from '../swapiServiceContext';
+import {SwapiServiceProvider} from '../swapiServiceContext';
 
 
 export default class App extends Component {
 
     state = {
-        swapiService : new SwapiService,
+        swapiService: new SwapiService,
     }
     onServiceChange = () => {
-        this.setState( ({swapiService}) =>{
+        this.setState(({swapiService}) => {
             const Service = swapiService instanceof SwapiService ?
                 DummySwapiService : SwapiService
             console.log('changed to  ', Service.name)
-            return{
+            return {
                 swapiService: new Service()
             }
         })
@@ -37,23 +38,28 @@ export default class App extends Component {
 
         return (
             <ErrorBoundry>
-                <SwapiServiceProvider value={this.state.swapiService} >
-                    <div className="stardb-app">
-                        <Header  onServiceChange={this.onServiceChange}/>
+                <SwapiServiceProvider value={this.state.swapiService}>
+                    <Router>
+                        <div className="stardb-app">
+                            <Header onServiceChange={this.onServiceChange}/>
 
-                        <Baner updateInterval={15000}/>
+                            <Baner updateInterval={15000}/>
 
-                        <PeoplePage/>
+                            <PeoplePage/>
 
-                        <PlanetPage/>
+                            <PlanetPage/>
 
-                        <StarshipPage/>
+                            <StarshipPage/>
+
+                            <Route path="/people" component={PeoplePage} />
+                            <Route path="/planet" component={PlanetPage} />
+                            <Route path="/starship" component={StarshipPage} />
 
 
-
-                    </div>
+                        </div>
+                    </Router>
                 </SwapiServiceProvider>
             </ErrorBoundry>
-        )
+    )
     }
-}
+    }
