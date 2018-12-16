@@ -1,6 +1,7 @@
 .header {
-  padding-left: 10px;
-  /*background: #2e2e2e;*/
+
+  padding: 20px 10px ;
+
 }
 .brand {
   padding: 15px 0 0;
@@ -44,5 +45,6 @@ color: #fefefe;
 
 .header button {
   padding: 10px;
-  margin-top: 3px;
+  margin: 3px 0 0 10px;
+  height: 40px;
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 
 import './style.css'
 import SwapiService from '../../services/swapiService/index'
@@ -21,6 +21,13 @@ export default class App extends Component {
 
     state = {
         swapiService: new SwapiService,
+        isLoggedIn: false
+    }
+    onLogin = () => {
+        this.setState({
+            isLoggedIn: true
+        })
+
     }
     onServiceChange = () => {
         this.setState(({swapiService}) => {
@@ -36,50 +43,58 @@ export default class App extends Component {
 
 
     render() {
+        const {isLoggedIn} = this.state
 
 
         return (
             <ErrorBoundry>
                 <SwapiServiceProvider value={this.state.swapiService}>
                     <Router>
-                        <div className="stardb-app">
+                        <div className="stardb-app container">
                             <Header onServiceChange={this.onServiceChange}/>
 
                             <Baner updateInterval={15000}/>
 
-                            <Route path="/"
-                                   render={() => <h2>Welcome to Star Wars api </h2>}
-                                   exact/>
-                            <Route path="/people" render={() => <h2>People</h2>}/>
-                            <Route path="/people/:id?" component={PeoplePage}/>
+                            <Switch>
+                                <Route path="/"
+                                       render={() => <h2>Welcome to Star Wars api </h2>}
+                                       exact/>
 
-                            <Route path="/planets" component={PlanetPage}/>
+                                <Route path="/people/:id?" component={PeoplePage}/>
 
-                            <Route path="/starships" component={StarshipPage}/>
-                            <Route path="/starships/:id"
-                                   render={
-                                       ( {match} ) => {
-                                       const {id} = match.params
-                                       return <StarshipDetails itemId={id} />
-                                     }
-                                   }
-                            />
+                                <Route path="/planets" component={PlanetPage}/>
 
-                            <Route path="/login"
-                                   render={
-                                       (  ) => {
-
-                                           return <LoginPage />
+                                <Route path="/starships" exact component={StarshipPage}/>
+                                <Route path="/starships/:id"
+                                       render={
+                                           ({match}) => {
+                                               const {id} = match.params
+                                               return <StarshipDetails itemId={id}/>
+                                           }
                                        }
-                                   }
-                            />
-                            <Route path="/admin"
-                                   render={
-                                       (  ) => {
-                                           return <LoginPage />
-                                       }
-                                   }
-                            />
+                                />
+
+                                {/*<Route path="/login"*/}
+                                       {/*render={*/}
+                                           {/*() => {*/}
+
+                                               {/*return <LoginPage*/}
+                                                   {/*isLoggedIn={isLoggedIn}*/}
+                                                   {/*onLoggin={() => this.onLogin}*/}
+                                               {/*/>*/}
+                                           {/*}*/}
+                                       {/*}*/}
+                                {/*/>*/}
+                                {/*<Route path="/admin"*/}
+                                       {/*render={*/}
+                                           {/*() => {*/}
+                                               {/*return <AdminPage isLoggedIn={isLoggedIn}/>*/}
+                                           {/*}*/}
+                                       {/*}*/}
+                                {/*/>*/}
+
+                                <Route render={() => <h2>Page Not Found </h2>}/>
+                            </Switch>
 
 
                         </div>
