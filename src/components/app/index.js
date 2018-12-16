@@ -8,11 +8,13 @@ import DummySwapiService from '../../services/dummySwapiService' // test data
 import Header from './../header/'
 import Baner from '../bannerPlanet/'
 
-import {PeoplePage, PlanetPage, StarshipPage} from '../pages/'
+import {PeoplePage, PlanetPage, StarshipPage, AdminPage, LoginPage} from '../pages/'
 
 import ErrorBoundry from '../errorBoundry/'
 
 import {SwapiServiceProvider} from '../swapiServiceContext';
+
+import {StarshipDetails} from '../swComponents';
 
 
 export default class App extends Component {
@@ -45,21 +47,45 @@ export default class App extends Component {
 
                             <Baner updateInterval={15000}/>
 
-                            <PeoplePage/>
+                            <Route path="/"
+                                   render={() => <h2>Welcome to Star Wars api </h2>}
+                                   exact/>
+                            <Route path="/people" render={() => <h2>People</h2>}/>
+                            <Route path="/people/:id?" component={PeoplePage}/>
 
-                            <PlanetPage/>
+                            <Route path="/planets" component={PlanetPage}/>
 
-                            <StarshipPage/>
+                            <Route path="/starships" component={StarshipPage}/>
+                            <Route path="/starships/:id"
+                                   render={
+                                       ( {match} ) => {
+                                       const {id} = match.params
+                                       return <StarshipDetails itemId={id} />
+                                     }
+                                   }
+                            />
 
-                            <Route path="/people" component={PeoplePage} />
-                            <Route path="/planet" component={PlanetPage} />
-                            <Route path="/starship" component={StarshipPage} />
+                            <Route path="/login"
+                                   render={
+                                       (  ) => {
+
+                                           return <LoginPage />
+                                       }
+                                   }
+                            />
+                            <Route path="/admin"
+                                   render={
+                                       (  ) => {
+                                           return <LoginPage />
+                                       }
+                                   }
+                            />
 
 
                         </div>
                     </Router>
                 </SwapiServiceProvider>
             </ErrorBoundry>
-    )
+        )
     }
-    }
+}

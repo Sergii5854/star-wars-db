@@ -7,21 +7,19 @@ import {withSwapiService} from '../hocHelpers';
 
 const StarshipDetails = (props) => {
     return (
-
         <ItemDetails {...props}>
-
-            <Record field="model" label="Model"/>
-            <Record field="length" label="Length"/>
-            <Record field="costInCredits" label="Cost"/>
+            <Record field="model" label="Model" />
+            <Record field="length" label="Length" />
+            <Record field="costInCredits" label="Cost" />
         </ItemDetails>
-
     );
 };
+
 const mapMethodsToProps = (swapiService) => {
     return {
-        getData: swapiService.getPlanet,
-        getImageUrl: swapiService.getStarshipImage,
+        getData: swapiService.getStarship,
+        getImageUrl: swapiService.getStarshipImage
     }
-}
+};
 
-export default withSwapiService(StarshipDetails, mapMethodsToProps)
+export default withSwapiService(mapMethodsToProps)(StarshipDetails);
